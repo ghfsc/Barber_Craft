@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BarberCraft | Barbearia Clássica & Moderna</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter e Playfair Display para títulos clássicos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        barber: {
+                            dark: '#0f1115',
+                            card: '#181b21',
+                            border: '#272c35',
+                            gold: '#d4af37',
+                            goldHover: '#b8952b',
+                            light: '#f4f4f6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-barber-dark text-gray-200 font-sans antialiased selection:bg-barber-gold selection:text-barber-dark">
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="sticky top-0 z-40 bg-barber-dark/95 backdrop-blur-md border-b border-barber-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" onclick="switchView('client')" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-barber-gold/10 border border-barber-gold/30 flex items-center justify-center text-barber-gold group-hover:bg-barber-gold group-hover:text-barber-dark transition-all duration-300">
+                        <i class="fa-solid fa-scissors text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="font-serif text-xl font-bold tracking-wider text-white">BARBER<span class="text-barber-gold">CRAFT</span></span>
+                        <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400">Est. 2018 • São Paulo</p>
+                    </div>
+                </a>
+
+                <!-- Navegação Desktop -->
+                <nav id="client-nav" class="hidden md:flex items-center space-x-8">
+                    <a href="#sobre" class="text-sm font-medium text-gray-300 hover:text-barber-gold transition-colors">A Marca</a>
+                    <a href="#diferenciais" class="text-sm font-medium text-gray-300 hover:text-barber-gold transition-colors">Experiência</a>
+                    <a href="#servicos" class="text-sm font-medium text-gray-300 hover:text-barber-gold transition-colors">Serviços & Valores</a>
+                    <a href="#contato" class="text-sm font-medium text-gray-300 hover:text-barber-gold transition-colors">Localização</a>
+                </nav>
+
+                <!-- Botões de Ação (WhatsApp + Acesso Admin) -->
+                <div class="flex items-center gap-3">
+                    <button onclick="openWhatsAppGeneral()" class="hidden sm:inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-all shadow-lg shadow-emerald-900/20">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Agendar Agora</span>
+                    </button>
+
+                    <!-- Botão Alternar Admin / Cliente -->
+                    <button id="admin-toggle-btn" onclick="handleAdminButtonClick()" class="inline-flex items-center gap-2 bg-barber-card hover:bg-barber-border border border-barber-border text-gray-300 hover:text-barber-gold text-sm font-medium px-4 py-2.5 rounded-xl transition-all">
+                        <i class="fa-solid fa-lock text-xs text-barber-gold"></i>
+                        <span id="admin-btn-text">Área Admin</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= VISÃO DO CLIENTE (LANDING & SERVIÇOS) ================= -->
+    <main id="client-view">
+        
+        <!-- HERO SECTION (DIVULGAÇÃO DA MARCA) -->
+        <section class="relative overflow-hidden py-20 lg:py-32 border-b border-barber-border">
+            <!-- Elemento decorativo de fundo -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-barber-gold/10 via-barber-dark to-barber-dark pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-barber-gold/10 border border-barber-gold/20 text-barber-gold text-xs font-semibold uppercase tracking-wider">
+                            <i class="fa-solid fa-crown"></i> Tradição & Estilo Contemporâneo
+                        </div>
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                            Mais do que um corte, uma <span class="text-barber-gold italic">assinatura</span> de personalidade.
+                        </h1>
+                        <p class="text-gray-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+                            Na <strong>BarberCraft</strong>, unimos a precisão da barbearia clássica com toalha quente e navalha às técnicas mais modernas de visagismo. Um refúgio urbano pensado para o homem que valoriza excelência, boa conversa e cuidado genuíno.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                            <a href="#servicos" class="inline-flex justify-center items-center gap-2 bg-barber-gold hover:bg-barber-goldHover text-barber-dark font-semibold px-7 py-4 rounded-xl transition-all shadow-lg shadow-barber-gold/10">
+                                <span>Explorar Serviços & Preços</span>
+                                <i class="fa-solid fa-arrow-down text-sm"></i>
+                            </a>
+                            <button onclick="openWhatsAppGeneral()" class="inline-flex justify-center items-center gap-2 bg-barber-card hover:bg-barber-border border border-barber-border text-white font-medium px-7 py-4 rounded-xl transition-all">
+                                <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i>
+                                <span>Falar com a Recepção</span>
+                            </button>
+                        </div>
+
+                        <!-- Métricas de Autoridade -->
+                        <div class="grid grid-cols-3 gap-6 pt-8 border-t border-barber-border/60 max-w-lg">
+                            <div>
+                                <p class="font-serif text-2xl sm:text-3xl font-bold text-white">+8 Anos</p>
+                                <p class="text-xs text-gray-400 mt-1">De tradição e arte</p>
+                            </div>
+                            <div>
+                                <p class="font-serif text-2xl sm:text-3xl font-bold text-barber-gold">4.9 ★</p>
+                                <p class="text-xs text-gray-400 mt-1">Avaliação dos clientes</p>
+                            </div>
+                            <div>
+                                <p class="font-serif text-2xl sm:text-3xl font-bold text-white">+12k</p>
+                                <p class="text-xs text-gray-400 mt-1">Cortes realizados</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Visual Institucional -->
+                    <div class="lg:col-span-5">
+                        <div class="relative rounded-2xl overflow-hidden border border-barber-border bg-barber-card shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=800&q=80" 
+                                 onerror="this.src='https://placehold.co/800x900/181b21/d4af37?text=BarberCraft+Studio'"
+                                 alt="Ambiente interno da BarberCraft" 
+                                 class="w-full h-[460px] object-cover object-center opacity-90 hover:scale-105 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-barber-dark via-barber-dark/40 to-transparent"></div>
+                            <div class="absolute bottom-0 inset-x-0 p-6 sm:p-8">
+                                <span class="text-xs uppercase tracking-widest text-barber-gold font-semibold">O Ritual BarberCraft</span>
+                                <h3 class="font-serif text-2xl font-bold text-white mt-1">Cerveja gelada, café expresso e acabamento impecável.</h3>
+                                <p class="text-sm text-gray-300 mt-2">Cortesia da casa em todos os atendimentos agendados.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBRE A MARCA & DIFERENCIAIS -->
+        <section id="sobre" class="py-20 bg-barber-card/40 border-b border-barber-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-barber-gold text-xs font-bold uppercase tracking-[0.2em]">Nossa Filosofia</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white mt-2">Por que escolher a BarberCraft?</h2>
+                    <p class="text-gray-400 mt-4 text-sm sm:text-base">
+                        Nascemos com o propósito de resgatar o verdadeiro ritual masculino. Cada detalhe foi projetado para transformar um simples compromisso em seu melhor momento da semana.
+                    </p>
+                </div>
+
+                <div id="diferenciais" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Pilar 1 -->
+                    <div class="bg-barber-card border border-barber-border p-8 rounded-2xl hover:border-barber-gold/50 transition-all">
+                        <div class="w-12 h-12 rounded-xl bg-barber-gold/10 text-barber-gold flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-compass-drafting"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Visagismo Personalizado</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Analisamos o formato do seu rosto, textura dos fios e estilo de vida antes de pegar na tesoura ou máquina, garantindo harmonia natural.
+                        </p>
+                    </div>
+
+                    <!-- Pilar 2 -->
+                    <div class="bg-barber-card border border-barber-border p-8 rounded-2xl hover:border-barber-gold/50 transition-all">
+                        <div class="w-12 h-12 rounded-xl bg-barber-gold/10 text-barber-gold flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-fire-flame-curved"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Barboterapia com Ozônio</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Toalhas quentes aromatizadas com óleos essenciais, esfoliação facial, massagem relaxante e hidratação profunda da pele e dos fios.
+                        </p>
+                    </div>
+
+                    <!-- Pilar 3 -->
+                    <div class="bg-barber-card border border-barber-border p-8 rounded-2xl hover:border-barber-gold/50 transition-all">
+                        <div class="w-12 h-12 rounded-xl bg-barber-gold/10 text-barber-gold flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-whiskey-glass"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Lounge & Pontualidade</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Respeitamos o seu tempo. Atendimento com hora marcada, ambiente climatizado, playlist selecionada e bar exclusivo para clientes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LISTAGEM DE SERVIÇOS COM VALORES E INTEGRAÇÃO WHATSAPP -->
+        <section id="servicos" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                        <span class="text-barber-gold text-xs font-bold uppercase tracking-[0.2em]">Menu de Serviços</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white mt-2">Nossos Serviços & Valores</h2>
+                        <p class="text-gray-400 mt-2 text-sm sm:text-base max-w-xl">
+                            Selecione os serviços desejados para solicitar seu agendamento instantaneamente pelo WhatsApp com mensagem pré-preenchida.
+                        </p>
+                    </div>
+
+                    <!-- Filtros de Categoria -->
+                    <div class="flex flex-wrap gap-2" id="category-filters">
+                        <button onclick="filterServices('todos')" data-cat="todos" class="cat-btn active px-4 py-2 rounded-xl text-sm font-medium bg-barber-gold text-barber-dark transition-all">Todos</button>
+                        <button onclick="filterServices('cabelo')" data-cat="cabelo" class="cat-btn px-4 py-2 rounded-xl text-sm font-medium bg-barber-card text-gray-300 border border-barber-border hover:border-barber-gold/50 transition-all">Cabelo</button>
+                        <button onclick="filterServices('barba')" data-cat="barba" class="cat-btn px-4 py-2 rounded-xl text-sm font-medium bg-barber-card text-gray-300 border border-barber-border hover:border-barber-gold/50 transition-all">Barba</button>
+                        <button onclick="filterServices('combos')" data-cat="combos" class="cat-btn px-4 py-2 rounded-xl text-sm font-medium bg-barber-card text-gray-300 border border-barber-border hover:border-barber-gold/50 transition-all">Combos VIP</button>
+                        <button onclick="filterServices('estetica')" data-cat="estetica" class="cat-btn px-4 py-2 rounded-xl text-sm font-medium bg-barber-card text-gray-300 border border-barber-border hover:border-barber-gold/50 transition-all">Tratamentos</button>
+                    </div>
+                </div>
+
+                <!-- Grid Dinâmico de Serviços -->
+                <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Preenchido via JavaScript -->
+                </div>
+
+                <!-- Barra Flutuante de Carrinho / Agendamento Rápido WhatsApp -->
+                <div id="whatsapp-booking-bar" class="hidden fixed bottom-6 inset-x-4 max-w-3xl mx-auto z-30 bg-barber-card/95 backdrop-blur-lg border border-barber-gold/50 p-4 rounded-2xl shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-barber-gold text-barber-dark font-bold flex items-center justify-center" id="selected-count">0</div>
+                        <div>
+                            <p class="text-sm font-semibold text-white" id="selected-names">Nenhum serviço selecionado</p>
+                            <p class="text-xs text-barber-gold font-medium">Total estimado: <span id="selected-total">R$ 0,00</span></p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <button onclick="clearSelectedServices()" class="px-3 py-2.5 rounded-xl text-xs font-medium text-gray-400 hover:text-white bg-barber-dark border border-barber-border">
+                            Limpar
+                        </button>
+                        <button onclick="openWhatsAppBookingModal()" class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all shadow-lg">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>Agendar no WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOCALIZAÇÃO & RODAPÉ -->
+        <footer id="contato" class="bg-barber-card border-t border-barber-border pt-16 pb-24 sm:pb-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-barber-border">
+                    <div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fa-solid fa-scissors text-barber-gold text-xl"></i>
+                            <span class="font-serif text-xl font-bold text-white">BARBER<span class="text-barber-gold">CRAFT</span></span>
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Excelência em cortes masculinos, barboterapia tradicional e cuidados pessoais. Seu estilo em boas mãos.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-semibold mb-4">Horário de Funcionamento</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex justify-between"><span>Segunda a Sexta:</span> <span class="text-white">09h00 às 20h00</span></li>
+                            <li class="flex justify-between"><span>Sábados:</span> <span class="text-white">08h30 às 18h00</span></li>
+                            <li class="flex justify-between"><span>Domingos e Feriados:</span> <span class="text-barber-gold">Fechado</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-semibold mb-4">Onde Estamos & Contato</h4>
+                        <p class="text-sm text-gray-400 mb-2"><i class="fa-solid fa-location-dot text-barber-gold mr-2"></i> Av. Paulista, 1578 - Bela Vista, São Paulo - SP</p>
+                        <p class="text-sm text-gray-400 mb-4"><i class="fa-brands fa-whatsapp text-emerald-400 mr-2"></i> (11) 99999-8888</p>
+                        <button onclick="openWhatsAppGeneral()" class="inline-flex items-center gap-2 text-sm font-medium text-emerald-400 hover:text-emerald-300">
+                            <span>Iniciar conversa no WhatsApp</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+                    <p>© 2026 BarberCraft Barbearia Ltda. Todos os direitos reservados.</p>
+                    <p>Desenvolvido para gestão inteligente e atendimento ágil.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- ================= VISÃO DO ADMINISTRADOR (GERADOR DE RELATÓRIOS) ================= -->
+    <section id="admin-view" class="hidden min-h-screen bg-barber-dark py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Cabeçalho do Painel Admin -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-8 border-b border-barber-border">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-barber-gold/10 text-barber-gold text-xs font-semibold mb-2">
+                        <i class="fa-solid fa-shield-halved"></i> Painel Administrativo • Gerência
+                    </div>
+                    <h1 class="font-serif text-3xl font-bold text-white">Gerador de Relatórios & Gestão</h1>
+                    <p class="text-sm text-gray-400 mt-1">Filtre atendimentos, analise receitas por barbeiro ou serviço e exporte relatórios gerenciais.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <button onclick="openNewRecordModal()" class="inline-flex items-center gap-2 bg-barber-gold hover:bg-barber-goldHover text-barber-dark font-semibold text-sm px-4 py-2.5 rounded-xl transition-all">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Registrar Atendimento</span>
+                    </button>
+                    <button onclick="logoutAdmin()" class="inline-flex items-center gap-2 bg-barber-card hover:bg-red-950/50 border border-barber-border hover:border-red-800 text-gray-300 hover:text-red-400 text-sm font-medium px-4 py-2.5 rounded-xl transition-all">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Sair do Admin</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- FILTROS DO GERADOR DE RELATÓRIO -->
+            <div class="bg-barber-card border border-barber-border rounded-2xl p-6 mt-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-base font-semibold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-filter text-barber-gold"></i> Parâmetros do Relatório
+                    </h2>
+                    <button onclick="resetReportFilters()" class="text-xs text-barber-gold hover:underline">Restaurar Filtros</button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <!-- Data Inicial -->
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1.5">Data Inicial</label>
+                        <input type="date" id="rep-date-start" class="w-full bg-barber-dark border border-barber-border rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-barber-gold">
+                    </div>
+                    <!-- Data Final -->
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1.5">Data Final</label>
+                        <input type="date" id="rep-date-end" class="w-full bg-barber-dark border border-barber-border rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-barber-gold">
+                    </div>
+                    <!-- Profissional / Barbeiro -->
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1.5">Barbeiro</label>
+                        <select id="rep-barber" class="w-full bg-barber-dark border border-barber-border rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-barber-gold">
+                            <option value="todos">Todos os Barbeiros</option>
+                            <option value="Carlos Mendes">Carlos Mendes (Master)</option>
+                            <option value="Rafael Souza">Rafael Souza</option>
+                            <option value="Lucas Oliveira">Lucas Oliveira</option>
+                        </select>
+                    </div>
+                    <!-- Categoria de Serviço -->
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1.5">Serviço</label>
+                        <select id="rep-service" class="w-full bg-barber-dark border border-barber-border rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-barber-gold">
+                            <option value="todos">Todos os Serviços</option>
+                            <!-- Preenchido via JS -->
+                        </select>
+                    </div>
+                    <!-- Botão Gerar Relatório -->
+                    <div class="flex items-end">
+                        <button onclick="generateReport()" class="w-full bg-barber-gold hover:bg-barber-goldHover text-barber-dark font-semibold text-sm py-2.5 px-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-barber-gold/10">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span>Gerar Relatório</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPIs / RESUMO DO RELATÓRIO GERADO -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+                <div class="bg-barber-card border border-barber-border p-6 rounded-2xl">
+                    <div class="flex items-center justify-between text-gray-400 text-xs font-medium uppercase">
+                        <span>Faturamento no Período</span>
+                        <i class="fa-solid fa-sack-dollar text-emerald-400 text-base"></i>
+                    </div>
+                    <p id="kpi-revenue" class="text-2xl sm:text-3xl font-bold text-white mt-3">R$ 0,00</p>
+                    <p class="text-xs text-emerald-400 mt-2"><i class="fa-solid fa-arrow-trend-up mr-1"></i> Receita líquida apurada</p>
+                </div>
+
+                <div class="bg-barber-card border border-barber-border p-6 rounded-2xl">
+                    <div class="flex items-center justify-between text-gray-400 text-xs font-medium uppercase">
+                        <span>Total de Atendimentos</span>
+                        <i class="fa-solid fa-scissors text-barber-gold text-base"></i>
+                    </div>
+                    <p id="kpi-count" class="text-2xl sm:text-3xl font-bold text-white mt-3">0</p>
+                    <p class="text-xs text-gray-400 mt-2">Serviços concluídos</p>
+                </div>
+
+                <div class="bg-barber-card border border-barber-border p-6 rounded-2xl">
+                    <div class="flex items-center justify-between text-gray-400 text-xs font-medium uppercase">
+                        <span>Ticket Médio</span>
+                        <i class="fa-solid fa-receipt text-sky-400 text-base"></i>
+                    </div>
+                    <p id="kpi-ticket" class="text-2xl sm:text-3xl font-bold text-white mt-3">R$ 0,00</p>
+                    <p class="text-xs text-gray-400 mt-2">Valor médio por cliente</p>
+                </div>
+
+                <div class="bg-barber-card border border-barber-border p-6 rounded-2xl">
+                    <div class="flex items-center justify-between text-gray-400 text-xs font-medium uppercase">
+                        <span>Serviço Mais Procurado</span>
+                        <i class="fa-solid fa-trophy text-amber-400 text-base"></i>
+                    </div>
+                    <p id="kpi-top-service" class="text-lg sm:text-xl font-bold text-white mt-3 truncate">-</p>
+                    <p id="kpi-top-service-sub" class="text-xs text-barber-gold mt-2">0 realizações</p>
+                </div>
+            </div>
+
+            <!-- GRÁFICO VISUAL POR BARBEIRO / SERVIÇO + EXPORTAÇÃO -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+                <!-- Desempenho por Profissional -->
+                <div class="bg-barber-card border border-barber-border rounded-2xl p-6">
+                    <h3 class="text-base font-semibold text-white mb-4">Receita por Profissional</h3>
+                    <div id="barber-breakdown" class="space-y-4">
+                        <!-- Barras de progresso geradas via JS -->
+                    </div>
+                </div>
+
+                <!-- Tabela Detalhada do Relatório -->
+                <div class="lg:col-span-2 bg-barber-card border border-barber-border rounded-2xl p-6 flex flex-col">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <h3 class="text-base font-semibold text-white">Detalhamento de Atendimentos</h3>
+                            <p class="text-xs text-gray-400">Listagem analítica conforme filtros selecionados</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="exportReportCSV()" class="inline-flex items-center gap-2 bg-barber-dark hover:bg-barber-border border border-barber-border text-gray-200 text-xs font-medium px-3.5 py-2 rounded-xl transition-all">
+                                <i class="fa-solid fa-file-csv text-emerald-400"></i>
+                                <span>Exportar CSV</span>
+                            </button>
+                            <button onclick="printReport()" class="inline-flex items-center gap-2 bg-barber-dark hover:bg-barber-border border border-barber-border text-gray-200 text-xs font-medium px-3.5 py-2 rounded-xl transition-all">
+                                <i class="fa-solid fa-print text-barber-gold"></i>
+                                <span>Imprimir / PDF</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto flex-1">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-barber-border text-[11px] uppercase tracking-wider text-gray-400">
+                                    <th class="py-3 px-3">Data</th>
+                                    <th class="py-3 px-3">Cliente</th>
+                                    <th class="py-3 px-3">Serviço</th>
+                                    <th class="py-3 px-3">Barbeiro</th>
+                                    <th class="py-3 px-3">Pagamento</th>
+                                    <th class="py-3 px-3 text-right">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="report-table-body" class="divide-y divide-barber-border/60 text-sm">
+                                <!-- Linhas preenchidas via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MODAL DE AGENDAMENTO VIA WHATSAPP ================= -->
+    <div id="whatsapp-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-barber-card border border-barber-border rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div class="flex items-center justify-between pb-4 border-b border-barber-border">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg">Finalizar via WhatsApp</h3>
+                </div>
+                <button onclick="closeModal('whatsapp-modal')" class="text-gray-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4 mt-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1">Seu Nome *</label>
+                    <input type="text" id="wa-client-name" placeholder="Ex: João Silva" class="w-full bg-barber-dark border border-barber-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Data Preferida</label>
+                        <input type="date" id="wa-date" class="w-full bg-barber-dark border border-barber-border rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Turno / Horário</label>
+                        <select id="wa-time" class="w-full bg-barber-dark border border-barber-border rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                            <option value="Manhã (09h - 12h)">Manhã (09h - 12h)</option>
+                            <option value="Tarde (13h - 17h)">Tarde (13h - 17h)</option>
+                            <option value="Noite (17h - 20h)">Noite (17h - 20h)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1">Barbeiro de Preferência</label>
+                    <select id="wa-barber" class="w-full bg-barber-dark border border-barber-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        <option value="Sem preferência (Primeiro disponível)">Sem preferência</option>
+                        <option value="Carlos Mendes">Carlos Mendes (Master)</option>
+                        <option value="Rafael Souza">Rafael Souza</option>
+                        <option value="Lucas Oliveira">Lucas Oliveira</option>
+                    </select>
+                </div>
+
+                <div class="bg-barber-dark border border-barber-border rounded-xl p-3">
+                    <p class="text-xs text-gray-400 mb-1">Resumo do Pedido:</p>
+                    <p id="wa-summary-text" class="text-sm text-white font-medium"></p>
+                    <p id="wa-summary-price" class="text-xs text-barber-gold font-bold mt-1"></p>
+                </div>
+
+                <button onclick="sendWhatsAppBooking()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Abrir Conversa no WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL DE LOGIN ADMINISTRATIVO ================= -->
+    <div id="admin-login-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-barber-card border border-barber-border rounded-2xl max-w-sm w-full p-6 shadow-2xl">
+            <div class="flex items-center justify-between pb-4 border-b border-barber-border">
+                <h3 class="font-bold text-white text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-lock text-barber-gold"></i> Acesso Restrito
+                </h3>
+                <button onclick="closeModal('admin-login-modal')" class="text-gray-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <form onsubmit="submitAdminLogin(event)" class="space-y-4 mt-4">
+                <p class="text-xs text-gray-400">Entre com as credenciais de gerente para acessar o gerador de relatórios.</p>
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1">Usuário</label>
+                    <input type="text" id="admin-user" value="admin" required class="w-full bg-barber-dark border border-barber-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-barber-gold">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1">Senha <span class="text-gray-500">(padrão: 1234)</span></label>
+                    <input type="password" id="admin-pass" value="1234" required class="w-full bg-barber-dark border border-barber-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-barber-gold">
+                </div>
+                <p id="login-error" class="hidden text-xs text-red-400">Credenciais inválidas. Tente admin / 1234.</p>
+                <button type="submit" class="w-full bg-barber-gold hover:bg-barber-goldHover text-barber-dark font-semibold py-2.5 rounded-xl transition-all">
+                    Entrar no Painel
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= MODAL NOVO ATENDIMENTO (PARA ALIMENTAR RELATÓRIO) ================= -->
+    <div id="new-record-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-barber-card border border-barber-border rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div class="flex items-center justify-between pb-4 border-b border-barber-border">
+                <h3 class="font-bold text-white text-lg">Registrar Atendimento Concluído</h3>
+                <button onclick="closeModal('new-record-modal')" class="text-gray-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <form onsubmit="addNewAttendanceRecord(event)" class="space-y-4 mt-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1">Nome do Cliente *</label>
+                    <input type="text" id="rec-client" required placeholder="Ex: Marcelo Costa" class="w-full bg-barber-dark border border-barber-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-barber-gold">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Data *</label>
+                        <input type="date" id="rec-date" required class="w-full bg-barber-dark border border-barber-border rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-barber-gold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Pagamento *</label>
+                        <select id="rec-payment" class="w-full bg-barber-dark border border-barber-border rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-barber-gold">
+                            <option value="PIX">PIX</option>
+                            <option value="Cartão de Crédito">Cartão de Crédito</option>
+                            <option value="Cartão de Débito">Cartão de Débito</option>
+                            <option value="Dinheiro">Dinheiro</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1">Serviço Realizado *</label>
+                    <select id="rec-service" required class="w-full bg-barber-dark border border-barber-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-barber-gold">
+                        <!-- Preenchido via JS -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1">Barbeiro *</label>
+                    <select id="rec-barber" required class="w-full bg-barber-dark border border-barber-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-barber-gold">
+                        <option value="Carlos Mendes">Carlos Mendes</option>
+                        <option value="Rafael Souza">Rafael Souza</option>
+                        <option value="Lucas Oliveira">Lucas Oliveira</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-barber-gold hover:bg-barber-goldHover text-barber-dark font-semibold py-2.5 rounded-xl transition-all">
+                    Salvar no Relatório
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- NOTIFICAÇÃO TOAST CUSTOMIZADA (SEM ALERT) -->
+    <div id="toast-notification" class="hidden fixed top-24 right-4 z-50 bg-barber-card border border-barber-gold text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transition-all">
+        <i class="fa-solid fa-circle-check text-barber-gold"></i>
+        <span id="toast-message" class="text-sm font-medium">Ação concluída!</span>
+    </div>
+
+    <script>
+        // ================= DADOS DO SISTEMA =================
+        const WHATSAPP_NUMBER = "5511999998888"; // Número comercial da barbearia
+
+        // Catálogo de Serviços
+        const SERVICES_DATA = [
+            {
+                id: 1,
+                name: "Corte Signature (Tesoura & Máquina)",
+                category: "cabelo",
+                price: 65.00,
+                duration: "45 min",
+                description: "Consultoria de visagismo, corte personalizado, lavagem refrescante com mentol e finalização com pomada premium.",
+                popular: true
+            },
+            {
+                id: 2,
+                name: "Barboterapia Tradicional",
+                category: "barba",
+                price: 55.00,
+                duration: "40 min",
+                description: "Alinhamento com navalha, duas toalhas quentes aromáticas, esfoliação, vapor de ozônio e balm hidratante.",
+                popular: false
+            },
+            {
+                id: 3,
+                name: "Combo Executivo (Corte + Barba)",
+                category: "combos",
+                price: 105.00,
+                duration: "1h 20min",
+                description: "Nossa experiência completa mais pedida. Inclui Corte Signature, Barboterapia com toalha quente e bebida cortesia.",
+                popular: true
+            },
+            {
+                id: 4,
+                name: "Corte Infantil / Pai & Filho",
+                category: "combos",
+                price: 110.00,
+                duration: "1h 15min",
+                description: "Atendimento simultâneo ou sequencial com todo cuidado e paciência para os pequenos e estilo para o pai.",
+                popular: false
+            },
+            {
+                id: 5,
+                name: "Acabamento & Pezinho + Sobrancelha",
+                category: "cabelo",
+                price: 35.00,
+                duration: "25 min",
+                description: "Manutenção rápida dos contornos na navalha e alinhamento natural das sobrancelhas.",
+                popular: false
+            },
+            {
+                id: 6,
+                name: "Selagem Térmica / Hidratação Profunda",
+                category: "estetica",
+                price: 90.00,
+                duration: "50 min",
+                description: "Redução de frizz, alinhamento dos fios rebeldes e brilho natural com produtos livres de formol.",
+                popular: false
+            },
+            {
+                id: 7,
+                name: "Camuflagem de Fios Brancos (Barba ou Cabelo)",
+                category: "estetica",
+                price: 75.00,
+                duration: "40 min",
+                description: "Tonalização sutil e gradual que rejuvenescem o visual sem aspecto artificial.",
+                popular: false
+            },
+            {
+                id: 8,
+                name: "Barba Express",
+                category: "barba",
+                price: 40.00,
+                duration: "25 min",
+                description: "Desenho e aparo na máquina e navalha com gel pós-barba calmante.",
+                popular: false
+            },
+            {
+                id: 9,
+                name: "Dia do Noivo / VIP Experience",
+                category: "combos",
+                price: 220.00,
+                duration: "2h 30min",
+                description: "Corte, barboterapia, limpeza de pele facial, hidratação capilar e degustação especial.",
+                popular: true
+            }
+        ];
+
+        // Base de dados simulada de atendimentos para o Gerador de Relatórios
+        let ATTENDANCE_RECORDS = [
+            { id: 101, date: "2026-11-15", client: "Ricardo Almeida", serviceId: 3, barber: "Carlos Mendes", payment: "PIX" },
+            { id: 102, date: "2026-11-15", client: "Fernando Lima", serviceId: 1, barber: "Rafael Souza", payment: "Cartão de Crédito" },
+            { id: 103, date: "2026-11-16", client: "Gustavo Henrique", serviceId: 2, barber: "Lucas Oliveira", payment: "Cartão de Débito" },
+            { id: 104, date: "2026-11-17", client: "Thiago Martins", serviceId: 3, barber: "Carlos Mendes", payment: "PIX" },
+            { id: 105, date: "2026-11-18", client: "Bruno Carvalho", serviceId: 9, barber: "Carlos Mendes", payment: "Cartão de Crédito" },
+            { id: 106, date: "2026-11-18", client: "André Santos", serviceId: 1, barber: "Lucas Oliveira", payment: "Dinheiro" },
+            { id: 107, date: "2026-11-19", client: "Felipe Rocha", serviceId: 6, barber: "Rafael Souza", payment: "PIX" },
+            { id: 108, date: "2026-11-19", client: "Eduardo Nogueira", serviceId: 3, barber: "Rafael Souza", payment: "Cartão de Crédito" },
+            { id: 109, date: "2026-11-20", client: "Marcelo Vieira", serviceId: 7, barber: "Carlos Mendes", payment: "PIX" },
+            { id: 110, date: "2026-11-20", client: "Diego Costa", serviceId: 1, barber: "Lucas Oliveira", payment: "Cartão de Débito" },
+            { id: 111, date: "2026-11-21", client: "Rodrigo Faro", serviceId: 3, barber: "Carlos Mendes", payment: "PIX" },
+            { id: 112, date: "2026-11-21", client: "Caio Castro", serviceId: 2, barber: "Rafael Souza", payment: "Cartão de Crédito" }
+        ];
+
+        // Estado da Aplicação
+        let selectedServiceIds = [];
+        let isAdminLoggedIn = false;
+        let currentFilteredReport = [];
+
+        // ================= INICIALIZAÇÃO =================
+        document.addEventListener("DOMContentLoaded", () => {
+            renderServices("todos");
+            populateServiceSelects();
+            setDefaultDates();
+            generateReport();
+        });
+
+        function formatCurrency(value) {
+            return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        }
+
+        function formatDateBR(isoDate) {
+            if (!isoDate) return "";
+            const [y, m, d] = isoDate.split("-");
+            return `${d}/${m}/${y}`;
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toast-notification");
+            document.getElementById("toast-message").textContent = message;
+            toast.classList.remove("hidden");
+            setTimeout(() => {
+                toast.classList.add("hidden");
+            }, 3500);
+        }
+
+        // ================= RENDERIZAÇÃO E FILTRO DE SERVIÇOS =================
+        function renderServices(category) {
+            const grid = document.getElementById("services-grid");
+            grid.innerHTML = "";
+
+            const filtered = category === "todos" 
+                ? SERVICES_DATA 
+                : SERVICES_DATA.filter(s => s.category === category);
+
+            filtered.forEach(service => {
+                const isSelected = selectedServiceIds.includes(service.id);
+                const card = document.createElement("div");
+                card.className = `bg-barber-card border ${isSelected ? 'border-barber-gold ring-1 ring-barber-gold/50' : 'border-barber-border'} rounded-2xl p-6 flex flex-col justify-between transition-all hover:border-barber-gold/60`;
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-start justify-between gap-2 mb-3">
+                            <span class="text-[11px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-lg bg-barber-dark text-gray-400 border border-barber-border">
+                                ${service.category}
+                            </span>
+                            ${service.popular ? `<span class="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-barber-gold/15 text-barber-gold border border-barber-gold/30"><i class="fa-solid fa-star text-[10px] mr-1"></i>Mais Pedido</span>` : ''}
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">${service.name}</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">${service.description}</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-barber-border/70">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="text-xs text-gray-400 block">Investimento</span>
+                                <span class="text-2xl font-bold text-barber-gold">${formatCurrency(service.price)}</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-gray-400 block">Duração</span>
+                                <span class="text-sm font-medium text-gray-200"><i class="fa-regular fa-clock text-barber-gold mr-1"></i>${service.duration}</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="toggleServiceSelection(${service.id})" class="px-3 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-1.5 ${isSelected ? 'bg-barber-gold text-barber-dark' : 'bg-barber-dark hover:bg-barber-border text-gray-200 border border-barber-border'}">
+                                <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-plus'}"></i>
+                                <span>${isSelected ? 'Selecionado' : 'Adicionar'}</span>
+                            </button>
+                            <button onclick="quickWhatsAppSingle(${service.id})" class="px-3 py-2.5 rounded-xl text-xs font-semibold bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-600/40 transition-all flex items-center justify-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                                <span>Agendar</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterServices(category) {
+            document.querySelectorAll(".cat-btn").forEach(btn => {
+                if (btn.dataset.cat === category) {
+                    btn.classList.add("bg-barber-gold", "text-barber-dark");
+                    btn.classList.remove("bg-barber-card", "text-gray-300", "border", "border-barber-border");
+                } else {
+                    btn.classList.remove("bg-barber-gold", "text-barber-dark");
+                    btn.classList.add("bg-barber-card", "text-gray-300", "border", "border-barber-border");
+                }
+            });
+            renderServices(category);
+        }
+
+        // ================= INTEGRAÇÃO WHATSAPP =================
+        function toggleServiceSelection(serviceId) {
+            const idx = selectedServiceIds.indexOf(serviceId);
+            if (idx > -1) {
+                selectedServiceIds.splice(idx, 1);
+            } else {
+                selectedServiceIds.push(serviceId);
+            }
+            // Re-renderiza mantendo a aba ativa
+            const activeCat = document.querySelector(".cat-btn.bg-barber-gold")?.dataset.cat || "todos";
+            renderServices(activeCat);
+            updateBookingBar();
+        }
+
+        function clearSelectedServices() {
+            selectedServiceIds = [];
+            const activeCat = document.querySelector(".cat-btn.bg-barber-gold")?.dataset.cat || "todos";
+            renderServices(activeCat);
+            updateBookingBar();
+        }
+
+        function updateBookingBar() {
+            const bar = document.getElementById("whatsapp-booking-bar");
+            if (selectedServiceIds.length === 0) {
+                bar.classList.add("hidden");
+                return;
+            }
+            bar.classList.remove("hidden");
+            const chosen = SERVICES_DATA.filter(s => selectedServiceIds.includes(s.id));
+            const total = chosen.reduce((acc, s) => acc + s.price, 0);
+
+            document.getElementById("selected-count").textContent = chosen.length;
+            document.getElementById("selected-names").textContent = chosen.map(s => s.name).join(" + ");
+            document.getElementById("selected-total").textContent = formatCurrency(total);
+        }
+
+        function quickWhatsAppSingle(serviceId) {
+            selectedServiceIds = [serviceId];
+            updateBookingBar();
+            openWhatsAppBookingModal();
+        }
+
+        function openWhatsAppBookingModal() {
+            const chosen = SERVICES_DATA.filter(s => selectedServiceIds.includes(s.id));
+            if (chosen.length === 0) return;
+
+            const total = chosen.reduce((acc, s) => acc + s.price, 0);
+            document.getElementById("wa-summary-text").textContent = chosen.map(s => `• ${s.name}`).join(" | ");
+            document.getElementById("wa-summary-price").textContent = `Valor Total Estimado: ${formatCurrency(total)}`;
+            
+            // Define data padrão como hoje
+            const today = new Date().toISOString().split("T")[0];
+            document.getElementById("wa-date").value = today;
+
+            document.getElementById("whatsapp-modal").classList.remove("hidden");
+        }
+
+        function sendWhatsAppBooking() {
+            const clientName = document.getElementById("wa-client-name").value.trim() || "Cliente";
+            const date = formatDateBR(document.getElementById("wa-date").value);
+            const time = document.getElementById("wa-time").value;
+            const barber = document.getElementById("wa-barber").value;
+
+            const chosen = SERVICES_DATA.filter(s => selectedServiceIds.includes(s.id));
+            const total = chosen.reduce((acc, s) => acc + s.price, 0);
+            const servicesList = chosen.map(s => `- ${s.name} (${formatCurrency(s.price)})`).join("\n");
+
+            const message = `Olá, *BarberCraft*! Gostaria de solicitar um agendamento:\n\n` +
+                            `👤 *Cliente:* ${clientName}\n` +
+                            `✂️ *Serviços:*\n${servicesList}\n` +
+                            `💰 *Total Estimado:* ${formatCurrency(total)}\n` +
+                            `📅 *Data:* ${date || "A combinar"}\n` +
+                            `⏰ *Turno:* ${time}\n` +
+                            `💈 *Profissional:* ${barber}\n\n` +
+                            `Aguardo confirmação de horário!`;
+
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, "_blank");
+            closeModal("whatsapp-modal");
+            showToast("Redirecionando para o WhatsApp da barbearia...");
+        }
+
+        function openWhatsAppGeneral() {
+            const message = "Olá, BarberCraft! Vim pelo site e gostaria de tirar uma dúvida / verificar horários disponíveis.";
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, "_blank");
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add("hidden");
+        }
+
+        // ================= CONTROLE DE ACESSO ADMIN =================
+        function handleAdminButtonClick() {
+            if (isAdminLoggedIn) {
+                // Alterna entre a visão do cliente e do admin se já estiver logado
+                const adminView = document.getElementById("admin-view");
+                if (adminView.classList.contains("hidden")) {
+                    switchView("admin");
+                } else {
+                    switchView("client");
+                }
+            } else {
+                document.getElementById("admin-login-modal").classList.remove("hidden");
+            }
+        }
+
+        function submitAdminLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById("admin-user").value.trim();
+            const pass = document.getElementById("admin-pass").value.trim();
+
+            if (user === "admin" && pass === "1234") {
+                isAdminLoggedIn = true;
+                document.getElementById("login-error").classList.add("hidden");
+                closeModal("admin-login-modal");
+                switchView("admin");
+                showToast("Bem-vindo ao Painel Administrativo!");
+            } else {
+                document.getElementById("login-error").classList.remove("hidden");
+            }
+        }
+
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            switchView("client");
+            showToast("Sessão administrativa encerrada.");
+        }
+
+        function switchView(view) {
+            const clientView = document.getElementById("client-view");
+            const adminView = document.getElementById("admin-view");
+            const clientNav = document.getElementById("client-nav");
+            const btnText = document.getElementById("admin-btn-text");
+
+            if (view === "admin") {
+                clientView.classList.add("hidden");
+                clientNav.classList.add("hidden");
+                adminView.classList.remove("hidden");
+                btnText.textContent = "Ver Site";
+                generateReport();
+            } else {
+                adminView.classList.add("hidden");
+                clientView.classList.remove("hidden");
+                clientNav.classList.remove("hidden");
+                btnText.textContent = isAdminLoggedIn ? "Painel Admin" : "Área Admin";
+            }
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        // ================= GERADOR DE RELATÓRIOS (ADMIN) =================
+        function populateServiceSelects() {
+            const repSelect = document.getElementById("rep-service");
+            const recSelect = document.getElementById("rec-service");
+
+            SERVICES_DATA.forEach(s => {
+                const opt1 = document.createElement("option");
+                opt1.value = s.id;
+                opt1.textContent = `${s.name} (${formatCurrency(s.price)})`;
+                repSelect.appendChild(opt1);
+
+                const opt2 = document.createElement("option");
+                opt2.value = s.id;
+                opt2.textContent = `${s.name} - ${formatCurrency(s.price)}`;
+                recSelect.appendChild(opt2);
+            });
+        }
+
+        function setDefaultDates() {
+            document.getElementById("rep-date-start").value = "2026-11-01";
+            document.getElementById("rep-date-end").value = "2026-11-30";
+            document.getElementById("rec-date").value = "2026-11-21";
+        }
+
+        function resetReportFilters() {
+            setDefaultDates();
+            document.getElementById("rep-barber").value = "todos";
+            document.getElementById("rep-service").value = "todos";
+            generateReport();
+            showToast("Filtros do relatório restaurados.");
+        }
+
+        function generateReport() {
+            const startDate = document.getElementById("rep-date-start").value;
+            const endDate = document.getElementById("rep-date-end").value;
+            const barberFilter = document.getElementById("rep-barber").value;
+            const serviceFilter = document.getElementById("rep-service").value;
+
+            // Filtra os atendimentos
+            currentFilteredReport = ATTENDANCE_RECORDS.filter(rec => {
+                const matchStart = !startDate || rec.date >= startDate;
+                const matchEnd = !endDate || rec.date <= endDate;
+                const matchBarber = barberFilter === "todos" || rec.barber === barberFilter;
+                const matchService = serviceFilter === "todos" || rec.serviceId === Number(serviceFilter);
+                return matchStart && matchEnd && matchBarber && matchService;
+            }).sort((a, b) => b.date.localeCompare(a.date));
+
+            // Calcula KPIs
+            let totalRevenue = 0;
+            const serviceCountMap = {};
+            const barberRevenueMap = {
+                "Carlos Mendes": 0,
+                "Rafael Souza": 0,
+                "Lucas Oliveira": 0
+            };
+
+            currentFilteredReport.forEach(rec => {
+                const service = SERVICES_DATA.find(s => s.id === rec.serviceId);
+                const price = service ? service.price : 0;
+                totalRevenue += price;
+
+                if (service) {
+                    serviceCountMap[service.name] = (serviceCountMap[service.name] || 0) + 1;
+                }
+                barberRevenueMap[rec.barber] = (barberRevenueMap[rec.barber] || 0) + price;
+            });
+
+            const count = currentFilteredReport.length;
+            const avgTicket = count > 0 ? totalRevenue / count : 0;
+
+            // Serviço mais procurado
+            let topService = "-";
+            let topServiceCount = 0;
+            for (const [name, qty] of Object.entries(serviceCountMap)) {
+                if (qty > topServiceCount) {
+                    topServiceCount = qty;
+                    topService = name;
+                }
+            }
+
+            // Atualiza Cards KPI
+            document.getElementById("kpi-revenue").textContent = formatCurrency(totalRevenue);
+            document.getElementById("kpi-count").textContent = count;
+            document.getElementById("kpi-ticket").textContent = formatCurrency(avgTicket);
+            document.getElementById("kpi-top-service").textContent = topService;
+            document.getElementById("kpi-top-service-sub").textContent = `${topServiceCount} realizações no período`;
+
+            // Renderiza Gráfico de Barras por Barbeiro
+            renderBarberBreakdown(barberRevenueMap, totalRevenue);
+
+            // Renderiza Tabela Analítica
+            renderReportTable(currentFilteredReport);
+        }
+
+        function renderBarberBreakdown(barberMap, totalRevenue) {
+            const container = document.getElementById("barber-breakdown");
+            container.innerHTML = "";
+
+            Object.entries(barberMap).forEach(([barber, rev]) => {
+                const pct = totalRevenue > 0 ? Math.round((rev / totalRevenue) * 100) : 0;
+                const item = document.createElement("div");
+                item.innerHTML = `
+                    <div class="flex justify-between text-xs mb-1.5">
+                        <span class="font-medium text-gray-200">${barber}</span>
+                        <span class="text-barber-gold font-semibold">${formatCurrency(rev)} (${pct}%)</span>
+                    </div>
+                    <div class="w-full bg-barber-dark rounded-full h-2.5 border border-barber-border overflow-hidden">
+                        <div class="bg-barber-gold h-full rounded-full transition-all duration-500" style="width: ${pct}%"></div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function renderReportTable(records) {
+            const tbody = document.getElementById("report-table-body");
+            tbody.innerHTML = "";
+
+            if (records.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="py-8 text-center text-gray-500 text-sm">
+                            Nenhum atendimento encontrado para os filtros selecionados.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            records.forEach(rec => {
+                const service = SERVICES_DATA.find(s => s.id === rec.serviceId);
+                const tr = document.createElement("tr");
+                tr.className = "hover:bg-barber-dark/60 transition-colors";
+                tr.innerHTML = `
+                    <td class="py-3 px-3 text-gray-300 whitespace-nowrap">${formatDateBR(rec.date)}</td>
+                    <td class="py-3 px-3 font-medium text-white">${rec.client}</td>
+                    <td class="py-3 px-3 text-gray-300">${service ? service.name : "Serviço"}</td>
+                    <td class="py-3 px-3 text-gray-400">${rec.barber}</td>
+                    <td class="py-3 px-3">
+                        <span class="text-[11px] px-2 py-0.5 rounded-md bg-barber-dark border border-barber-border text-gray-300">
+                            ${rec.payment}
+                        </span>
+                    </td>
+                    <td class="py-3 px-3 text-right font-semibold text-barber-gold whitespace-nowrap">
+                        ${service ? formatCurrency(service.price) : "R$ 0,00"}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Adicionar novo registro manual no painel admin
+        function openNewRecordModal() {
+            document.getElementById("new-record-modal").classList.remove("hidden");
+        }
+
+        function addNewAttendanceRecord(e) {
+            e.preventDefault();
+            const client = document.getElementById("rec-client").value.trim();
+            const date = document.getElementById("rec-date").value;
+            const payment = document.getElementById("rec-payment").value;
+            const serviceId = Number(document.getElementById("rec-service").value);
+            const barber = document.getElementById("rec-barber").value;
+
+            ATTENDANCE_RECORDS.unshift({
+                id: Date.now(),
+                date,
+                client,
+                serviceId,
+                barber,
+                payment
+            });
+
+            document.getElementById("rec-client").value = "";
+            closeModal("new-record-modal");
+            generateReport();
+            showToast("Atendimento registrado e relatório atualizado!");
+        }
+
+        // Exportação CSV
+        function exportReportCSV() {
+            if (currentFilteredReport.length === 0) {
+                showToast("Não há dados para exportar.");
+                return;
+            }
+
+            let csv = "Data;Cliente;Servico;Barbeiro;Forma de Pagamento;Valor (R$)\n";
+            currentFilteredReport.forEach(rec => {
+                const service = SERVICES_DATA.find(s => s.id === rec.serviceId);
+                const price = service ? service.price.toFixed(2).replace(".", ",") : "0,00";
+                csv += `${formatDateBR(rec.date)};${rec.client};${service ? service.name : ""};${rec.barber};${rec.payment};${price}\n`;
+            });
+
+            const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", `relatorio_barbercraft_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast("Relatório CSV baixado com sucesso!");
+        }
+
+        // Impressão / Salvar PDF
+        function printReport() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
